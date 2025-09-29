@@ -21,9 +21,9 @@ public class S3Controller {
         return ResponseEntity.ok(Map.of("url", url));
     }
 
-    @GetMapping("/presign/{url}")
-    public ResponseEntity<String> getPresignedUrl(@PathVariable String url) {
-        String presignedUrl = s3Service.generatePresignedUrl(url, 1);
-        return ResponseEntity.ok(presignedUrl);
+    @PostMapping("/profile")
+    public ResponseEntity<Map<String, String>> uploadProfileImage(@RequestParam("file") MultipartFile file) {
+        String url = s3Service.uploadFile(file, "/profile");
+        return ResponseEntity.ok(Map.of("url", url));
     }
 }
